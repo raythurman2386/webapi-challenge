@@ -1,5 +1,6 @@
 const actionsRouter = require("express").Router();
 const Actions = require("../../../data/helpers/actionModel");
+const validateActions = require("../../middleware/validateActions");
 
 // get all actions
 const getAllActions = async (req, res) => {
@@ -53,9 +54,14 @@ const deleteAction = async (req, res) => {
 
 actionsRouter
   .get("/", getAllActions)
-  .get("/:id", getActionById)
-  .post("/", addAction)
-  .put("/:id", updateAction)
-  .delete("/:id", deleteAction);
+  .get("/:id", validateActions.validateActionId, getActionById)
+  .post("/", validateActions.validateNewAction, addAction)
+  .put(
+    "/:id",
+    validateActions.validateActionId,
+    validateActions.validateNewAction,
+    updateAction
+  )
+  .delete("/:id", validateActions.validateActionId, deleteAction);
 
 module.exports = actionsRouter;

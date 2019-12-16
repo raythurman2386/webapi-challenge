@@ -65,7 +65,7 @@ const deleteProject = async (req, res) => {
 projectsRouter
   .get("/", getAllProjects)
   .get("/:id", validateProjects.validateProjectId, getProjectById)
-  .get("/:id", getProjectActions)
+  .get("/:id", validateProjects.validateProjectId, getProjectActions)
   .post("/", validateProjects.validateNewProject, addProject)
   .put("/:id", validateProjects.validateNewProject, updateProject)
   .delete("/:id", validateProjects.validateProjectId, deleteProject);
