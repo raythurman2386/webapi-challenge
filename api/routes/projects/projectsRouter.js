@@ -1,5 +1,6 @@
 const projectsRouter = require("express").Router();
 const Projects = require("../../../data/helpers/projectModel");
+const validateProjects = require("../../middleware/validateProjects");
 
 // get all projects
 const getAllProjects = async (req, res) => {
@@ -63,10 +64,10 @@ const deleteProject = async (req, res) => {
 
 projectsRouter
   .get("/", getAllProjects)
-  .get("/:id", getProjectById)
+  .get("/:id", validateProjects.validateProjectId, getProjectById)
   .get("/:id", getProjectActions)
-  .post("/", addProject)
-  .put("/:id", updateProject)
-  .delete("/:id", deleteProject);
+  .post("/", validateProjects.validateNewProject, addProject)
+  .put("/:id", validateProjects.validateNewProject, updateProject)
+  .delete("/:id", validateProjects.validateProjectId, deleteProject);
 
 module.exports = projectsRouter;
