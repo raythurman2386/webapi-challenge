@@ -21,6 +21,16 @@ const getProjectById = async (req, res) => {
   }
 };
 
+// Get Project Actions
+const getProjectActions = async (req, res) => {
+  try {
+    const actions = await Projects.getProjectActions(req.params.id);
+    res.json(actions);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+};
+
 // Add a project
 const addProject = async (req, res) => {
   try {
@@ -54,6 +64,7 @@ const deleteProject = async (req, res) => {
 projectsRouter
   .get("/", getAllProjects)
   .get("/:id", getProjectById)
+  .get("/:id", getProjectActions)
   .post("/", addProject)
   .put("/:id", updateProject)
   .delete("/:id", deleteProject);
