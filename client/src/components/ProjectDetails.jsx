@@ -18,6 +18,7 @@ const ProjectDetails = props => {
   return (
     <div>
       {project && <h2>{project.name}</h2>}
+      {project && <p>{project.description}</p>}
       <ul>
         {actions &&
           actions.map(action => <li key={action.id}>{action.description}</li>)}
