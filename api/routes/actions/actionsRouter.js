@@ -6,9 +6,9 @@ const validateActions = require("../../middleware/validateActions");
 const getAllActions = async (req, res) => {
   try {
     const actions = await Actions.get();
-    res.json(actions);
+    return res.json(actions);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -16,9 +16,9 @@ const getAllActions = async (req, res) => {
 const getActionById = async (req, res) => {
   try {
     const action = await Actions.get(req.params.id);
-    res.json(action);
+    return res.json(action);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -26,9 +26,9 @@ const getActionById = async (req, res) => {
 const addAction = async (req, res) => {
   try {
     const action = await Actions.insert(req.body);
-    res.json(action);
+    return res.json(action);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -36,9 +36,9 @@ const addAction = async (req, res) => {
 const updateAction = async (req, res) => {
   try {
     const action = await Actions.update(req.params.id, req.body);
-    res.json(action);
+    return res.json(action);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -46,9 +46,9 @@ const updateAction = async (req, res) => {
 const deleteAction = async (req, res) => {
   try {
     const action = await Actions.remove(req.params.id);
-    res.json(action);
+    return res.json(action);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 

@@ -6,9 +6,9 @@ const validateProjects = require("../../middleware/validateProjects");
 const getAllProjects = async (req, res) => {
   try {
     const projects = await Projects.get();
-    res.json(projects);
+    return res.json(projects);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -16,9 +16,9 @@ const getAllProjects = async (req, res) => {
 const getProjectById = async (req, res) => {
   try {
     const project = await Projects.get(req.params.id);
-    res.json(project);
+    return res.json(project);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -26,9 +26,9 @@ const getProjectById = async (req, res) => {
 const getProjectActions = async (req, res) => {
   try {
     const actions = await Projects.getProjectActions(req.params.id);
-    res.json(actions);
+    return res.json(actions);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -36,9 +36,9 @@ const getProjectActions = async (req, res) => {
 const addProject = async (req, res) => {
   try {
     const project = await Projects.insert(req.body);
-    res.status(201).json(project[0]);
+    return res.status(201).json(project[0]);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -46,9 +46,9 @@ const addProject = async (req, res) => {
 const updateProject = async (req, res) => {
   try {
     const project = await Projects.update(req.params.id, req.body);
-    res.json(project[0]);
+    return res.json(project[0]);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
@@ -56,16 +56,16 @@ const updateProject = async (req, res) => {
 const deleteProject = async (req, res) => {
   try {
     const project = await Projects.remove(req.params.id);
-    res.json(project[0]);
+    return res.json(project[0]);
   } catch (error) {
-    res.status(500).json(error);
+    return res.status(500).json(error);
   }
 };
 
 projectsRouter
   .get("/", getAllProjects)
   .get("/:id", validateProjects.validateProjectId, getProjectById)
-  .get("/:id", validateProjects.validateProjectId, getProjectActions)
+  .get("/:id/actions", validateProjects.validateProjectId, getProjectActions)
   .post("/", validateProjects.validateNewProject, addProject)
   .put("/:id", validateProjects.validateNewProject, updateProject)
   .delete("/:id", validateProjects.validateProjectId, deleteProject);
